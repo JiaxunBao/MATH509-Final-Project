@@ -1,6 +1,6 @@
 # MATH509-Final-Project
 
 Group Members:
-1.Gabriel Okoli
-2.Devinder Pal Singh
-3.Jiaxun Bao
+1.Gabriel Okoli \n
+2.Devinder Pal Singh \n
+3.Jiaxun Bao \n
