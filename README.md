@@ -1,9 +1,12 @@
 # MATH509-Final-Project
 
 Group Members:
-1.Gabriel Okoli \n
-2.Devinder Pal Singh \n
-3.Jiaxun Bao \n
+1.Gabriel Okoli
+<br>
+2.Devinder Pal Singh
+<br>
+3.Jiaxun Bao
+<br>
 
 Introduction
 Out of the total population of Canada approximately 35.5% of the population holds a mortgage with a total
