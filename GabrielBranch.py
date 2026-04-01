@@ -1,3 +1,4 @@
+#importation of required libraries
 import pandas as pd
 import numpy as np
 from sklearn.compose import ColumnTransformer
@@ -64,7 +65,10 @@ models = {
         )),
     ]),
 }
+<<<<<<< HEAD
 
 
 
 #
+=======
+>>>>>>> eb62fbd060d9b2c77fa7495800bbe9bc262b0de0
