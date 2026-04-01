@@ -1,6 +1,10 @@
 import pandas as pd
 import numpy as np
 
+FILE_PATH = "/content/drive/MyDrive/Colab Notebooks/Data1(MATH509).xlsx"
+SHEET_NAME = 0
+OBSERVED_CUTOFF = "2024Q2"
+
 def q_to_period(q):
     return pd.Period(str(q).strip().upper(), freq="Q")
 
