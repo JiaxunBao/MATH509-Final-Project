@@ -29,3 +29,8 @@ for col in base_macro:
     df[f"{col}_lag1"] = df.groupby("cma")[col].shift(1)
 
 features = ["delinq_lag1"] + [f"{c}_lag1" for c in base_macro]
+
+observed_cutoff = pd.Period(OBSERVED_CUTOFF, freq="Q")
+obs_df = df[df["quarter_period"] <= observed_cutoff].dropna(
+    subset=["delinq_index_2012Q3_100"] + features
+).copy()
