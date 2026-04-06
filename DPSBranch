@@ -1,4 +1,6 @@
-#7 Fit and compare
+#7. Fit and compare
+
+
 results = []
 holdout_predictions = test_df[["quarter", "cma", "delinq_index_2012Q3_100"]].copy()
 holdout_predictions = holdout_predictions.rename(columns={"delinq_index_2012Q3_100": "actual"})
