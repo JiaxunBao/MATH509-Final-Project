@@ -38,7 +38,7 @@ best_model = fitted_models[best_model_name]
 print(results_df)
 print(f"\nBest model: {best_model_name}")
 
-# 8. Refit best model on all observed rows and forecast future rows from the first sheet
+# 8. Refit best model on all observed rows and forecast future rows
 X_obs = obs_df[["cma"] + features]
 y_obs = obs_df["delinq_index_2012Q3_100"]
 
