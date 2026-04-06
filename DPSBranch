@@ -1,6 +1,4 @@
-#7. Fit and compare
-
-
+# 7. Fit and compare
 results = []
 holdout_predictions = test_df[["quarter", "cma", "delinq_index_2012Q3_100"]].copy()
 holdout_predictions = holdout_predictions.rename(columns={"delinq_index_2012Q3_100": "actual"})
@@ -27,3 +25,42 @@ best_model = fitted_models[best_model_name]
 print(results_df)
 print(f"\nBest model: {best_model_name}")
 
+# 8. Refit best model on all observed rows and forecast future rows from the first sheet
+X_obs = obs_df[["cma"] + features]
+y_obs = obs_df["delinq_index_2012Q3_100"]
+
+best_model.fit(X_obs, y_obs)
+
+if len(future_df) > 0:
+    future_df = future_df.copy()
+    future_df["predicted_delinq_index"] = best_model.predict(future_df[["cma"] + features])
+    print("\nFuture forecasts:")
+    print(future_df[["quarter", "cma", "predicted_delinq_index"]].head(20))
+
+# 9. Save outputs
+results_df.to_csv("predictive_model_results_first_sheet.csv", index=False)
+holdout_predictions.to_csv("predictive_model_holdout_predictions_first_sheet.csv", index=False)
+
+if len(future_df) > 0:
+    future_df[["quarter", "cma", "predicted_delinq_index"]].to_csv(
+        "predictive_model_future_forecasts_first_sheet.csv",
+        index=False
+    )
+
+# 10. Save coefficients / feature importance
+feature_names = best_model.named_steps["pre"].get_feature_names_out()
+
+if best_model_name in ["ridge", "elastic_net"]:
+    coef_df = pd.DataFrame({
+        "feature": feature_names,
+        "coefficient": best_model.named_steps["model"].coef_,
+    })
+    coef_df["abs_coefficient"] = coef_df["coefficient"].abs()
+    coef_df = coef_df.sort_values("abs_coefficient", ascending=False)
+else:
+    coef_df = pd.DataFrame({
+        "feature": feature_names,
+        "importance": best_model.named_steps["model"].feature_importances_,
+    }).sort_values("importance", ascending=False)
+
+coef_df.to_csv("predictive_model_best_model_coefficients_first_sheet.csv", index=False)
