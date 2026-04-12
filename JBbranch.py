@@ -24,7 +24,10 @@ base_macro = [
     "bank_rate",
 ]
 
+target_col = "delinq_index_2012Q3_100"
+
 df["delinq_lag1"] = df.groupby("cma")["delinq_index_2012Q3_100"].shift(1)
+
 for col in base_macro:
     df[f"{col}_lag1"] = df.groupby("cma")[col].shift(1)
 
