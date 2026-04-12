@@ -32,3 +32,29 @@ for col in base_macro:
     df[f"{col}_lag1"] = df.groupby("cma")[col].shift(1)
 
 features = ["delinq_lag1"] + [f"{c}_lag1" for c in base_macro]
+
+#3. Keep observed rows only for model selection
+
+observed_cutoff = pd.Period(OBSERVED_CUTOFF, freq="Q")
+
+obs_df = df[df["quarter_period"] <= observed_cutoff].dropna(
+    subset=[target_col] + features
+).copy()
+
+future_df = df[df["quarter_period"] > observed_cutoff].dropna(
+    subset=features
+).copy()
+
+#4. Time-based holdout: last 8 observed quarters
+
+obs_quarters = sorted(obs_df["quarter_period"].unique())
+test_quarters = obs_quarters[-8:]
+
+train_df = obs_df[~obs_df["quarter_period"].isin(test_quarters)].copy()
+test_df = obs_df[obs_df["quarter_period"].isin(test_quarters)].copy()
+
+X_train = train_df[["cma"] + features]
+y_train = train_df[target_col]
+
+X_test = test_df[["cma"] + features]
+y_test = test_df[target_col]
