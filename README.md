@@ -63,6 +63,7 @@ This project was designed to answer three major questions:
 ---
 
 <a id="mathematical-modeling-framework"></a>
+
 ## Mathematical Modeling Framework
 
 The delinquency index is modeled as a function of:
